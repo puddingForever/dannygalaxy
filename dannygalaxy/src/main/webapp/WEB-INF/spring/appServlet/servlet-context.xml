@@ -7,7 +7,9 @@
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure 
+			servlet이 사용할 빈을 정의함 : 빈이 생성되는 곳 : beanFactory . applicationContext (뒤에 context잇는 파일들) 
+	-->
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
@@ -21,8 +23,8 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.danny.dannygalaxy" />
-	
+	<!-- component-scan -->
+	<context:component-scan base-package="com.danny.dannygalaxy.service"/>
 	
 	
 </beans:beans>
