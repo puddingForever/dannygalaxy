@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.danny.dannygalaxy.domain.RoverDTO;
+import com.danny.dannygalaxy.response.AsteroidsResponse;
 import com.danny.dannygalaxy.response.RoverApiResponse;
 import com.danny.dannygalaxy.service.NasaApiService;
 
@@ -35,6 +36,16 @@ public class NasaController {
 
 		model.addAttribute("roverData", roverData);
 		return "nasa/rover";
+	}
+	
+	//소행성 
+	@GetMapping("/asteroids")
+	public String getObjects(Model model) {
+		
+		AsteroidsResponse response = nasaService.getAsteroids();
+		
+		model.addAttribute("asteroids", response);
+		return "nasa/asteroids";
 	}
 	
 	
