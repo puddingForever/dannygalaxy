@@ -1,5 +1,9 @@
 package com.danny.dannygalaxy.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,13 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.danny.dannygalaxy.domain.RoverDTO;
-import com.danny.dannygalaxy.response.AsteroidsResponse;
 import com.danny.dannygalaxy.response.RoverApiResponse;
 import com.danny.dannygalaxy.service.NasaApiService;
 
 
 @Controller
-@RequestMapping("/news")
+@RequestMapping("/nasa")
 public class NasaController {
 
 	@Autowired
@@ -35,20 +38,26 @@ public class NasaController {
 		}
 
 		model.addAttribute("roverData", roverData);
-		return "nasa/rover";
+		return "/nasa/rover";
 	}
 	
 	//소행성 
 	@GetMapping("/asteroids")
-	public String getObjects(Model model) {
+	public void getObjects(Model model) {
 		
-		AsteroidsResponse response = nasaService.getAsteroids();
-		
-		model.addAttribute("asteroids", response);
-		return "nasa/asteroids";
+		//결과
+	    HashMap<String,Object> myMap = nasaService.getAsteroids();
+	  
+	    //날짜
+	    HashMap<String,String> dates = nasaService.getDates();
+	    
+	    
+	    model.addAttribute("element_count",myMap.get("element_count"));
+	    model.addAttribute("name",myMap.get("name"));
+	    model.addAttribute("hazardous",myMap.get("hazardous"));
+	    model.addAttribute("kilo",myMap.get("kilo"));
+	    model.addAttribute("date", dates);
+
 	}
-	
-	
-	
 	
 }

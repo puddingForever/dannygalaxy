@@ -14,7 +14,18 @@
 		<org.slf4j-version>2.0.7</org.slf4j-version>
 	</properties>
 	<dependencies>
-	
+	<!-- 새로추가 gson -->
+		<dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.10.1</version>
+		</dependency>
+	<!-- 새로추가 : org.json/json -->
+		<dependency>
+		    <groupId>org.json</groupId>
+		    <artifactId>json</artifactId>
+		    <version>20230227</version>
+		</dependency>
 	<!-- 새로추가 : jackson-databind(json데이터를 받을 수 있음) -->
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
