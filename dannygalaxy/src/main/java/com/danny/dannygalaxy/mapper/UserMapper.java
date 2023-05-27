@@ -12,7 +12,7 @@ public interface UserMapper {
 	//회원 가입
 	int insertUser(UserVO userVO);
 	
-	//회원 삭제 
+	//회원 탈퇴
 	int deleteUser(UserVO userVO);
 	
 	//로그인

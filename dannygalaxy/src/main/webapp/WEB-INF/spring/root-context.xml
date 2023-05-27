@@ -4,5 +4,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-		<!--모든 리소스에서 공유되는 것 ..  -->
+	<bean class="com.danny.dannygalaxy.domain.UserVO" id="loginUserBean" scope="session" />
+	
+
 </beans>

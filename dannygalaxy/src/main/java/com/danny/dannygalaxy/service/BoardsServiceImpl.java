@@ -27,13 +27,22 @@ public class BoardsServiceImpl implements BoardsService{
 	@Override
 	public long registerBoard(BoardsVO board) {
 		boardMapper.insertBoardsSelectKey(board);
-		return board.getBno();
+		return board.getBno();//게시글 등록 후 , 변경된 boardVO값이 들어있음
 	}
-	//게시글 하나 조회
+	//게시글 하나 조회, 조회수 증가 
 	@Override
 	public BoardsVO getBoard(long bno) {
+		boardMapper.updateBviewsCnt(bno);
 		return boardMapper.selectBoards(bno);
 	}
+	
+	//수정 페이지 조회 , 조회수 그대로 
+	@Override
+	public BoardsVO getBoardDetailModify(long bno) {	
+		return boardMapper.selectBoards(bno);
+	}
+
+	
 	//게시글 수정
 	@Override
 	public boolean modifyBoard(BoardsVO board) {

@@ -8,15 +8,14 @@
 	<!--insert, update, delete는 자동으로 int타입의 값을 반환해 준다-->
     <!-- 전체 게시글 조회  -->
 	<select id="selectBoardList" resultType="com.danny.dannygalaxy.domain.BoardsVO">
-		SELECT  bno,btitle,bcontent,bwriter,bregdate,bmoddate,bviewscnt,
-				breplycnt,breplycnt,bdelflag
+		SELECT  bno,btitle,bcontent,bwriter,bviewsCnt,breplyCnt,bdelFlag,
+				bregDate,bmoddate
 		  FROM schatz.boards
 	</select>
 
     <!-- 게시글 등록  -->
 	<insert id="insertBoardsSelectKey">
-		<!-- sequence값에 1을 더한후 , BoardVO의 bno 값에 1을 넣음   -->
-		<selectKey keyProperty="bno" order="BEFORE">
+		<selectKey keyProperty="bno" order="BEFORE" resultType="long">
 			SELECT schatz.seq_board.nextval from dual
 		</selectKey>
 			INSERT  INTO schatz.boards
@@ -25,10 +24,17 @@
 	
 	<!--특정 게시글 조회  -->
 	<select id="selectBoards" resultType="com.danny.dannygalaxy.domain.BoardsVO">
-			SELECT * 
+			SELECT bno,btitle,bcontent,bwriter,bviewsCnt,breplyCnt,bdelFlag,bregDate,bmodDate
 			FROM schatz.boards
 			WHERE bno=#{bno}
 	</select>
+	
+	<!-- 특정 게시글 조회수 증가 :게시글 조회시 +1 -->
+	<update id="updateBviewsCnt">
+		UPDATE schatz.boards
+		   SET bviewsCnt = bviewsCnt + 1
+		 WHERE bno = #{bno}
+	</update>
 
 	<!-- 특정 게시글 수정  -->
 	<update id="updateBoards" parameterType="com.danny.dannygalaxy.domain.BoardsVO">		    
@@ -51,11 +57,6 @@
 		 WHERE bno = #{bno}
 	</delete>
 	
-	<!-- 특정 게시글 조회수 증가 :게시글 조회시 +1 -->
-	<update id="updateBviewsCnt">
-		UPDATE schatz.boards
-		   SET bviewsCnt = bviewsCnt + 1
-		 WHERE bno = #{bno}
-	</update>
+	
 	
 </mapper>	

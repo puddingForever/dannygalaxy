@@ -15,6 +15,9 @@ public interface BoardMapper {
 	//특정 게시글 조회 
 	BoardsVO selectBoards(long bno);
 	
+	//특정 게시글 조회수 증가 
+	void updateBviewsCnt(long bno);
+	
 	//특정 게시글 수정
 	long updateBoards(BoardsVO board);
 	
@@ -24,8 +27,7 @@ public interface BoardMapper {
 	//특정 게시글 삭제 - 실제 삭제 
 	long deleteBoards(long bno);
 	
-	//특정 게시글 조회수 증가 
-	void updateBviewsCnt(long bno);
+	
 	
 	
 

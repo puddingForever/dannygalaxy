@@ -1,7 +1,6 @@
 package com.danny.dannygalaxy.domain;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,7 +21,7 @@ public class BoardsVO {
 	private int breplyCnt;
 	private int bdelFlag;
 	private Date bregDate;
-	private Timestamp bmodDate;
+	private Date bmodDate;
 	
 	
 	

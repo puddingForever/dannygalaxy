@@ -6,44 +6,44 @@
 
 <mapper namespace="com.danny.dannygalaxy.mapper.UserMapper">
 	
-	<!--회원 전체 목록 조회  -->
+	<!-- 회원리스트 -->
 	<select id="selectUserList" resultType="com.danny.dannygalaxy.domain.UserVO">
 		SELECT * 
-	      FROM schatz.users_table
+		  FROM schatz.users_table
+	  ORDER BY user_regDate DESC
 	</select>
-	
-	<!--회원 가입  -->
-	<insert id="insertUser" parameterType="com.danny.dannygalaxy.domain.UserVO">
-		<selectKey keyProperty="user_idx" order="BEFORE">
+
+	<!-- 회원가입 -->
+	<insert id="insertUser">
+		<selectKey keyProperty="user_idx" order="BEFORE" resultType="long">
 			SELECT schatz.user_seq.nextval from dual
 		</selectKey>
-		INSERT INTO schatz.users_table
-		     VALUES(#{user_seq},#{user_id},#{user_name},#{user_password},#{user_email},DEFAULT)
+			INSERT INTO users_table
+				VALUES (#{user_idx},#{user_id},#{user_name},#{user_password},#{user_email},DEFAULT)
 	</insert>
+	
 
-	<!--회원 탈최  -->
+	<!-- 회원탈퇴  -->
 	<delete id="deleteUser" parameterType="com.danny.dannygalaxy.domain.UserVO">
 		DELETE schatz.users_table
 		 WHERE user_idx = #{user_idx}
 	</delete>
-
-   <!--로그인  -->
+	
+	<!-- 로그인  -->
 	<select id="selectLoginUserInfo" parameterType="com.danny.dannygalaxy.domain.UserVO" 
-									resultType="com.danny.dannygalaxy.domain.UserVO">
-			SELECT user_idx,user_name
-             FROM schatz.users_table
-            WHERE user_id = #{user_id} AND user_password = #{user_password}
-									
-									
+							resultType="com.danny.dannygalaxy.domain.UserVO">
+		SELECT user_idx,user_name 
+		  FROM schatz.users_table
+         WHERE user_id = #{user_id} AND user_password = #{user_password}
 	</select>
-
-  <!-- 아이디 중복체크  -->		
+	
+	<!-- 아이디 중복 체크 -->
 	<select id="checkUserIdExist" parameterType="String" resultType="String">
-			SELECT (CASE when count(*)=1 then 'unusable' ELSE 'usable' END)as RESULT
-			 FROM schatz.users_table
-			WHERE user_id = #{user_id}
+		SELECT (case when count(*) = 1 then 'unusable' else 'usable' end)AS RESULT
+		  FROM schatz.users_table 
+		 WHERE user_id = #{user_id}
 	</select>
-			
+	
 
 
 </mapper>
