@@ -51,11 +51,19 @@
 		
 		var marsSol = frmMarsSol.marsSol.value;
 		
-		if(marsSol.length==0||marsSol>1000||marsSol<0){
+		if(marsSol.length==0){
 			alert("1에서 1000사이의 숫자를 입력해주세요");
 			frmMarsSol.marsSol.focus();
 			return;
-		}	
+		}else if(marsSol>1000){
+			alert("1에서 1000사이의 숫자를 입력해주세요");
+			frmMarsSol.marsSol.focus();
+			return;
+		}else if(marsSol<=0){
+			alert("1에서 1000사이의 숫자를 입력해주세요");
+			frmMarsSol.marsSol.focus();
+			return;
+		}
 		
 		frmMarsSol.method="GET";
 		frmMarsSol.action="${contextPath}/news/rover";

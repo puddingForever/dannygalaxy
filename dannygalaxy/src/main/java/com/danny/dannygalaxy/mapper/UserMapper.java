@@ -19,5 +19,5 @@ public interface UserMapper {
 	UserVO selectLoginUserInfo(UserVO UserVO);
 	
 	//아이디 중복체크 
-	String checkUserIdExist(long user_idx);
+	String checkUserIdExist(String user_id);
 }

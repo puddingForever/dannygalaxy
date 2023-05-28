@@ -39,7 +39,7 @@
 	
 	<!-- 아이디 중복 체크 -->
 	<select id="checkUserIdExist" parameterType="String" resultType="String">
-		SELECT (case when count(*) = 1 then 'unusable' else 'usable' end)AS RESULT
+		SELECT (case when count(*) = 1 then 'unusable' else 'usable' end)RESULT
 		  FROM schatz.users_table 
 		 WHERE user_id = #{user_id}
 	</select>

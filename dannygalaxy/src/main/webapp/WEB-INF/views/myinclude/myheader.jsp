@@ -50,7 +50,19 @@
       <!-- Left links -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="#">About us</a>
+          <a class="nav-link" href="#">소개</a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link" href="${contextPath}/nasa/asteroids">실시간 소식</a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link" href="${contextPath}/user/login">로그인</a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link" href="#">상품예약</a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link" href="${contextPath}/boards/list">후기게시판</a>
         </li>
       </ul>
     </div>

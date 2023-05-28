@@ -58,9 +58,9 @@ public class UserServiceImpl implements UserService {
 
 	//아이디 중복 확인 
 	@Override
-	public String checkUserIdExist(long user_idx) {
-		// TODO Auto-generated method stub
-		return null;
+	public String checkUserIdExist(String user_id) {
+			String result = userMapper.checkUserIdExist(user_id);
+		return result;
 	}
 
 }

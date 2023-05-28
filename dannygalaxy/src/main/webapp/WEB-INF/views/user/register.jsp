@@ -5,15 +5,20 @@
 <%@ include file="../myinclude/myheader.jsp" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
+<div class="container" style="margin-top:100px">
+
      <div class="card">
       <h2 class="card-header">
-		회원가입을 해주세요
+		회원가입
       </h2>
       <div class="card-body">
         <form:form action="${contextPath }/user/register" method="post" modelAttribute="registerUserBean">
           <div class="form-group">
             <form:label path="user_id">아이디</form:label>
             <form:input path="user_id" class="form-control" placeholder="아이디를 입력하세요"/>
+            <div class="input-group-append">
+				<button type="button" class="btn btn-primary" onclick='checkUserIdExist()'>중복확인</button>
+			</div>
              <form:label path="user_name">이름</form:label>
             <form:input path="user_name" class="form-control" placeholder="아이디를 입력하세요"/>
             <form:label path="user_email">이메일</form:label>
@@ -32,6 +37,37 @@
         </form:form>
       </div>
     </div>
+</div>
+
+<script>
+	function checkUserIdExist(){
+		var user_id = $("#user_id").val();
+		
+		if(user_id.length==0){
+			alert("아이디를 입력해주세요");
+			return
+		}//end-if
+		
+		$.ajax({
+			url:'${contextPath}/user/checkUserIdExist/'+user_id,
+			type:'get',
+			dataType : 'text',
+			success: function(result){
+					 console.log(result);
+					 if(result.trim()=='usable'){
+						 alert('사용할 수 있는 아이디입니다.');
+						 
+					 }else{
+						 alert('사용할 수 없는 아이디입니다.');
+					 }
+				
+			}//end-success
+			
+		})//end-ajax
+		
+	}//end-checkUserIdExist
+
+</script>
  
  <%@ include file="../myinclude/myfooter.jsp" %>
  
