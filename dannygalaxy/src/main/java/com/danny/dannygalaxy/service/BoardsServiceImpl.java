@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.danny.dannygalaxy.common.BoardPagingDTO;
 import com.danny.dannygalaxy.domain.BoardsVO;
 import com.danny.dannygalaxy.mapper.BoardMapper;
 
@@ -19,8 +20,13 @@ public class BoardsServiceImpl implements BoardsService{
 
 	//전체 게시글
 	@Override
-	public List<BoardsVO> getBoardList() {
-		return boardMapper.selectBoardList();
+	public List<BoardsVO> getBoardList(BoardPagingDTO boardPagingDTO) {
+		return boardMapper.selectBoardList(boardPagingDTO);
+	}
+	//게시글 총 개수 
+	@Override
+	public long getRowAmountTotal(BoardPagingDTO boardPagingDTO) {
+		return boardMapper.selectRowAmountTotal(boardPagingDTO);
 	}
 
 	//게시글 등록

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.danny.dannygalaxy.domain.RoverDTO;
+import com.danny.dannygalaxy.domain.RoverVO;
 import com.danny.dannygalaxy.response.RoverApiResponse;
 import com.danny.dannygalaxy.service.NasaApiService;
 
@@ -26,15 +26,15 @@ public class NasaController {
 	
 	//rover api 
 	@GetMapping("/rover")
-	public String getRover(RoverDTO roverDTO,Model model) {
+	public String getRover(RoverVO roverVO,Model model) {
 		RoverApiResponse roverData = null;
 		//null일떄 getter 밑 setter 사용시 NPE에러발생으로 RoverDTO 객체를 따로 씀 
-		if(roverDTO == null || roverDTO.getMarsSol() == null || roverDTO.getMarsSol()==0) {
-			RoverDTO rover = new RoverDTO();
+		if(roverVO == null || roverVO.getMarsSol() == null || roverVO.getMarsSol()==0) {
+			RoverVO rover = new RoverVO();
 			rover.setMarsSol(50);
 			roverData = nasaService.getRoverData(rover.getMarsSol());
 		}else {
-			roverData = nasaService.getRoverData(roverDTO.getMarsSol());
+			roverData = nasaService.getRoverData(roverVO.getMarsSol());
 		}
 
 		model.addAttribute("roverData", roverData);

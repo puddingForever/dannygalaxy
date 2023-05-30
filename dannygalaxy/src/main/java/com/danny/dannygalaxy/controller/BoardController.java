@@ -5,8 +5,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.danny.dannygalaxy.common.BoardPagingCreatorDTO;
+import com.danny.dannygalaxy.common.BoardPagingDTO;
 import com.danny.dannygalaxy.domain.BoardsVO;
 import com.danny.dannygalaxy.service.BoardsService;
 
@@ -23,8 +26,17 @@ public class BoardController {
 	
 	//게시글 목록 조회 
 	@GetMapping("/list")
-	public void getBoardList(Model model) {
-		model.addAttribute("boardList",boardsService.getBoardList());
+	public String getBoardList(BoardPagingDTO boardPagingDTO,Model model) {
+		model.addAttribute("boardList",boardsService.getBoardList(boardPagingDTO));
+		//페이징 처리 
+		long rowAmountTotal = boardsService.getRowAmountTotal(boardPagingDTO);
+		
+		BoardPagingCreatorDTO boardPagingCreatorDTO 
+							= new BoardPagingCreatorDTO(rowAmountTotal,boardPagingDTO);
+		model.addAttribute("pagingCreator",boardPagingCreatorDTO);
+		
+		return "boards/list";
+	
 	}
 	
 	//등록 페이지 
@@ -41,7 +53,7 @@ public class BoardController {
 	
 	//특정 게시글 조회 
 	@GetMapping("/detail")
-	public void getDetail(Long bno,Model model) {
+	public void getDetail(@RequestParam("bno") Long bno,Model model) {
 		model.addAttribute("board", boardsService.getBoard(bno));
 	}
 	

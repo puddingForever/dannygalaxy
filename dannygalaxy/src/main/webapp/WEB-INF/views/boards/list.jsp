@@ -44,9 +44,32 @@
 </c:forEach>
 			</tbody>
 			</table>
-		
-				<!--  페이징 처리  -->
 			
+			
+		<div style="text-align: center;">		
+					
+		<nav aria-label="Page navigation example">
+		  <ul class="pagination">
+		  	<c:if test="${pagingCreator.prev }">
+		  	    <li class="page-item prev"><a class="page-link" href="1">&laquo;</a></li>
+		  	</c:if>
+		  	<c:if test="${pagingCreator.prev }">
+		  	    <li class="page-item prev"><a class="page-link" href="${pagingCreator.startPagingNum-1 }">prev</a></li>
+		  	</c:if>
+		  	<c:forEach var="pageNum" begin="${pagingCreator.startPagingNum }" end="${pagingCreator.endPagingNum }">
+		  			    <li class='page-item ${pagingCreator.boardPagingDTO.pageNum == pageNum ? "active" :"" }'>
+		  			    <a class="page-link" href="${pageNum }">${pageNum }</a>
+		  			    </li>
+		  	</c:forEach>
+		    <c:if test="${pagingCreator.next}">
+		  	    <li class="page-item next"><a class="page-link" href="${pagingCreator.endPagingNum + 1 }">next</a></li>
+		  	</c:if>
+		  	<c:if test="${pagingCreator.next }">
+		  	    <li class="page-item next"><a class="page-link" href="${pagingCreator.lastPageNum }}">&laquo;</a></li>
+		  	</c:if>
+		  </ul>
+		</nav>
+	</div>				
 			
 			<div class="text-right">
 				<a href="${contextPath}/boards/register" class="btn btn-primary">글쓰기</a>
@@ -54,6 +77,40 @@
 			
 		</div>
 	</div>
+	
+	<form id="frmSendValue">
+		<input type='hidden' name='pageNum' value='${pagingCreator.boardPagingDTO.pageNum }'>
+		<input type='hidden' name='rowAmountPerPage' value='${pagingCreator.boardPagingDTO.rowAmountPerPage }'>
+		<input type='hidden' name='lastPageNum' value='${pagingCreator.lastPageNum }'>
+	</form>
 </div>
+
+
+<script>
+
+
+const link = document.querySelectorAll(".page-link");
+
+function handleLink(event){
+	event.preventDefault();
+	var frmSendValue = document.getElementById("frmSendValue"); 
+	frmSendValue.querySelector("input[name='pageNum']").value;
+	frmSendValue.method="get";
+	frmSendValue.action="${contextPath}/boards/list";
+	frmSendValue.submit();	
+}
+
+link.forEach((element)=>{
+	
+	element.addEventListener("click",handleLink);
+})
+
+
+
+
+
+
+
+</script>
 
 <%@ include file="../myinclude/myfooter.jsp" %>

@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RoverDTO {
+public class RoverVO {
 	
 	private Integer marsSol;
 }

@@ -2,12 +2,15 @@ package com.danny.dannygalaxy.service;
 
 import java.util.List;
 
+import com.danny.dannygalaxy.common.BoardPagingDTO;
 import com.danny.dannygalaxy.domain.BoardsVO;
 
 public interface BoardsService {
 	
 	//전체 게시글 조회
-	List<BoardsVO> getBoardList();
+	List<BoardsVO> getBoardList(BoardPagingDTO boardPagingDTO);
+	//게시글 총 개수 
+	public long getRowAmountTotal(BoardPagingDTO boardPagingDTO);
 	//특정 게시글 보기 : 조회수 + 1
 	BoardsVO getBoard(long bno);
 	//수정 페이지

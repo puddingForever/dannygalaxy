@@ -2,13 +2,17 @@ package com.danny.dannygalaxy.mapper;
 
 import java.util.List;
 
+import com.danny.dannygalaxy.common.BoardPagingDTO;
 import com.danny.dannygalaxy.domain.BoardsVO;
 
 public interface BoardMapper {
 	
-	//전체 게시글 조회
-	List<BoardsVO> selectBoardList();
-
+	//게시글 조회 - 목록 (페이징 고려)
+	public List<BoardsVO> selectBoardList(BoardPagingDTO boardPagingDTO);
+	
+	//게시글 총 개수(페이징)
+	public long selectRowAmountTotal(BoardPagingDTO boardPagingDTO);
+	
 	//게시글 등록 
 	long insertBoardsSelectKey(BoardsVO board);
 	
