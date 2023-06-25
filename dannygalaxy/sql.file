@@ -1,0 +1,9 @@
+
+--로켓상품테이블
+create table tbl_rockets(
+    rocketId number(10,0) primary key,
+    rocketName varchar2(200) not null,
+    rocketPrice number(10) default 0,
+    rocketRank number(1,0) default 0,
+     rocketSpecial varchar(200) default '-'
+)tablespace danny;

@@ -30,11 +30,9 @@ public class BoardController {
 		model.addAttribute("boardList",boardsService.getBoardList(boardPagingDTO));
 		//페이징 처리 
 		long rowAmountTotal = boardsService.getRowAmountTotal(boardPagingDTO);
-		
 		BoardPagingCreatorDTO boardPagingCreatorDTO 
 							= new BoardPagingCreatorDTO(rowAmountTotal,boardPagingDTO);
-		model.addAttribute("pagingCreator",boardPagingCreatorDTO);
-		
+		model.addAttribute("pagingCreator",boardPagingCreatorDTO);	
 		return "boards/list";
 	
 	}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 문서 유형 : mapper -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	
+<mapper namespace="com.danny.dannygalaxy.mapper.RocketMapper">
+
+	<!-- 로켓전체 가져오기 -->
+	<select id="selectRocketlist" resultType="com.danny.dannygalaxy.domain.RocketVO">
+		SELECT rocketId,rocketName,rocketPrice,rocketSpecial
+		FROM danny.tbl_rockets
+	</select> 
+
+
+	
+</mapper>
+	

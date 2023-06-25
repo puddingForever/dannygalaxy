@@ -7,16 +7,23 @@ import org.springframework.stereotype.Service;
 import com.danny.dannygalaxy.common.BoardPagingDTO;
 import com.danny.dannygalaxy.domain.BoardsVO;
 import com.danny.dannygalaxy.mapper.BoardMapper;
+import com.danny.dannygalaxy.mapper.ReplyMapper;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Service
-@AllArgsConstructor
+//@AllArgsConstructor
 public class BoardsServiceImpl implements BoardsService{
 	
 	private BoardMapper boardMapper;
+	private ReplyMapper replyMapper;
+	
+	public BoardsServiceImpl(BoardMapper boardMapper,ReplyMapper replyMapper) {
+		this.boardMapper = boardMapper;
+		this.replyMapper = replyMapper;
+	}
 
 	//전체 게시글
 	@Override
@@ -58,12 +65,16 @@ public class BoardsServiceImpl implements BoardsService{
 	//bdelFlag 컬럼 1로 수정
 	@Override
 	public boolean setBoardDeleted(long bno) {
+		replyMapper.updateBdelFlagAllReply(bno);
 		return boardMapper.updateBdelFlag(bno)==1;
 	}
 	
 	//게시글 실제 삭제 
 	@Override
 	public boolean removeBoard(long bno) {
+		int delCnt = replyMapper.deleteAllReply(bno);
+		System.out.println("삭제된 댓글 총 수 : " + delCnt);
+		
 		return boardMapper.deleteBoards(bno)==1;
 	}
 

@@ -47,4 +47,84 @@
 </div>
 
 
-<%@ include file="../myinclude/myfooter.jsp" %>
+<script type="text/javascript" src="${contextPath }/resources/js/mycomment.js"></script>
+<script>
+
+var bnoValue ='<c:out value="${board.bno}"/>' ;
+
+//myCommentClsr
+
+/* myCommentClsr.removeCmtReply (
+	{bno: bnoValue, rno: 6} ,
+	
+	function(result) {
+		alert(result) ;
+	} ,
+	
+	function(err) {
+		alert("오류로 인한 삭제 취소.\r" + err) ;
+	}
+	
+
+) ; */
+
+/*
+myCommentClsr.modifyCmtReply(
+	{bno: bnoValue, rno: 2, rcontent: "JS클로저답글댓글수정===="} ,
+	function(result){
+		alert(result) ;
+	}
+);
+
+
+
+myCommentClsr.getCmtReply(
+	{bno: bnoValue, rno: 1},
+	function(data){
+		console.log(data) ;
+	}
+);
+
+
+myCommentClsr.registerReply(
+	{bno: bnoValue, rcontent:"JS댓글의 답글등록1", rwriter:"user7", prno: 1} ,
+	function(result){
+		console.log("서버 등록 결과: " + result) ;
+	}
+);
+
+
+myCommentClsr.registerCmt(
+	{bno: bnoValue, rcontent:"JS댓글등록1", rwriter:"user7"} ,
+	function(result){
+		console.log("서버 등록 결과: " + result) ;
+	}
+);
+
+
+*/
+
+myCommentClsr.getCmtList(
+		{bno: bnoValue} ,
+		
+		function (replyList) {
+			for(var i = 0, len = replyList.length || 0 ; i < len ; i++){
+				console.log(replyList[i]) ;
+			}
+		},
+		
+		function(err) {
+			alert("오류" + err) ;
+		}
+		
+);
+
+
+
+
+
+
+</script>
+
+
+<%@ include file="../myinclude/footer.jsp" %>
