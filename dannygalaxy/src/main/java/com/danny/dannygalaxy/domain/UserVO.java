@@ -1,6 +1,8 @@
 package com.danny.dannygalaxy.domain;
 
-import java.sql.Date;
+
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,19 +15,22 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserVO {
 	
-	private long user_idx;
-	private String user_id;
-	private String user_name;
-	private String user_password;
-	private String user_email;
-	private Date user_regDate;
-
+	private Long userIdx;
+	@Size(min=2, max=4)
+	@Pattern(regexp = "[가-힣]*")
+	private String userName;
 	
-	//비밀번호 확인용
-	private String user_pw_confirm;
-	//로그인 유무 
-	private boolean userLogin;
+	@Size(min=4,max=20)
+	@Pattern(regexp="[a-zA-Z0-9]*")
+	private String userId;
 	
+	@Size(min=4,max=20)
+	@Pattern(regexp="[a-zA-Z0-9]*")
+	private String userPw;
 	
-
+	//db 조회 X
+	@Size(min=4, max=20)
+	@Pattern(regexp="[a-zA-Z0-9]*")
+	private String userPw2;
+	
 }
