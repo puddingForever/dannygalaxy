@@ -11,7 +11,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 public class UserVO {
 	
@@ -32,5 +31,16 @@ public class UserVO {
 	@Size(min=4, max=20)
 	@Pattern(regexp="[a-zA-Z0-9]*")
 	private String userPw2;
+	
+	//유효성 체크 확인
+	private boolean userIdExist;
+	
+	//로그인 했는지에 대한 변수값 저장
+	private boolean userLogin;
+	
+	public UserVO() {
+		this.userIdExist = false;
+		this.userLogin = false; //로그인 성공시 true 
+	}
 	
 }

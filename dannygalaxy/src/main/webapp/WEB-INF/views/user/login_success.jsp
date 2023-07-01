@@ -4,5 +4,5 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
 <script>
 	alert("로그인이 완료되었습니다");
-	location.href="${contextPath}/budgets";
+	location.href="${contextPath}/user/register";
 </script>

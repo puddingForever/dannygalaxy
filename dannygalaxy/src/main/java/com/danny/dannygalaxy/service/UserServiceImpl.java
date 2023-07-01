@@ -1,10 +1,7 @@
 package com.danny.dannygalaxy.service;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
@@ -12,55 +9,46 @@ import com.danny.dannygalaxy.domain.UserVO;
 import com.danny.dannygalaxy.mapper.UserMapper;
 
 @Service
-public class UserServiceImpl implements UserService {
-	
-	@Autowired
+public class UserServiceImpl implements UserService{
+
 	private UserMapper userMapper;
 	
-	//로그인용 빈 가져오기 
-	@Resource(name = "loginUserBean")
+	public UserServiceImpl(UserMapper userMapper) {
+		this.userMapper = userMapper;
+	}
+	
+	@Resource(name="loginUserBean")
 	@Lazy
 	private UserVO loginUserBean;
-
-	//전체 사용자 조회 
+	
+	
+	//중복체크 
 	@Override
-	public List<UserVO> getUserList() {
-		return userMapper.selectUserList();
+	public String checkUserIdExist(String userId) {
+		return userMapper.checkUserIdExist(userId);	
 	}
 
 	//회원가입
 	@Override
-	public boolean registerUser(UserVO userVO) {
-		return userMapper.insertUser(userVO)==1;
+	public int registerUser(UserVO userVO) {
+		return userMapper.insertUser(userVO);
 	}
 
-	//회원탈퇴
-	@Override
-	public boolean removeUser(UserVO userVO) {
-		return userMapper.deleteUser(userVO)==1;
-	}
 
-	//로그인 
+	//로그인 처리
 	@Override
-	public boolean getLoginUserInfo(UserVO tempLoginUserBean) {
+	public void loginUser(UserVO tempLoginUserBean) {
 		
-		UserVO tempLoginUserBean2 = userMapper.selectLoginUserInfo(tempLoginUserBean);
+		UserVO tempLoginUserBean2 =userMapper.selectLoginUser(tempLoginUserBean);
 		
 		if(tempLoginUserBean2 != null) {
-			loginUserBean.setUser_idx(tempLoginUserBean2.getUser_idx());
-			loginUserBean.setUser_name(tempLoginUserBean2.getUser_name());
-			loginUserBean.setUserLogin(true); //로그인 설정 변경 
-			return true;
+			loginUserBean.setUserIdx(tempLoginUserBean2.getUserIdx());
+			loginUserBean.setUserName(tempLoginUserBean2.getUserName());
+			loginUserBean.setUserLogin(true);
 		}
-		
-		return false;
+	
 	}
-
-	//아이디 중복 확인 
-	@Override
-	public String checkUserIdExist(String user_id) {
-			String result = userMapper.checkUserIdExist(user_id);
-		return result;
-	}
+	 
+	
 
 }
