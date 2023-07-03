@@ -8,8 +8,36 @@
 
 	<!-- 로켓전체 가져오기 -->
 	<select id="selectRocketlist" resultType="com.danny.dannygalaxy.domain.RocketVO">
-		SELECT rocketId,rocketName,rocketPrice,rocketSpecial
-		FROM danny.tbl_rockets
+		SELECT rkNo,rkName,rkEngine,rkAvailDate,rkPeopleCnt,rkPrice
+		FROM schatz.tbl_rockets
+		<if test="rocketName != '' and rocketName != null">
+				<trim prefix="where">
+					rkName = #{rocketName}
+				</trim>	
+		</if>
+		<if test="rocketName != '' and rocketName != null">
+				<trim prefix="and">
+					rkAvailDate = to_timestamp(#{boardingDate},'yyyy-mm-dd')
+				</trim>	
+		</if>
+		
+		
+		<if test="highSpeed != '' and highSpeed != null">
+			<if test="highSpeed == 1">
+				<trim prefix="order by rkEngine">
+					desc
+				</trim>
+			</if>
+		</if>
+		<if test="priceOrder != '' and priceOrder != null">
+			<if test="priceOrder == 1">
+				order by rkPrice desc
+			</if>
+			<if test="priceOrder == 2">
+				order by rkPrice asc
+			</if>
+		</if>
+	
 	</select> 
 
 

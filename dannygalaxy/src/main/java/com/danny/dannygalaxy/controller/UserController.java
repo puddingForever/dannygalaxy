@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.danny.dannygalaxy.domain.UserVO;
@@ -56,7 +57,10 @@ public class UserController {
 	
 	//로그인 페이지 조회
 	@GetMapping("/login")
-	public String showLoginPage(@ModelAttribute("tempLoginUserBean")UserVO tempLoginUserBean) {
+	public String showLoginPage(@ModelAttribute("tempLoginUserBean")UserVO tempLoginUserBean
+			,@RequestParam(value="fail",defaultValue="false")boolean fail,
+			Model model) {
+		model.addAttribute("fail", fail);
 		return "user/login";
 	}
 	
