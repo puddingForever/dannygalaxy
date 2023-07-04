@@ -29,6 +29,7 @@
 				<value>classpath:com/danny/dannygalaxy/mapper/BoardMapper.xml</value>
 				<value>classpath:com/danny/dannygalaxy/mapper/UserMapper.xml</value>
 				<value>classpath:com/danny/dannygalaxy/mapper/ReplyMapper.xml</value>
+				<value>classpath:com/danny/dannygalaxy/mapper/RocketAttachFileMapper.xml</value>
 			</list>
 		</property>
 	</bean>
