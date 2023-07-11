@@ -1,6 +1,10 @@
 package com.danny.dannygalaxy.domain;
 
-import java.sql.Date;
+
+import java.sql.Timestamp;
+import java.util.Date;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,15 +17,17 @@ import lombok.Setter;
 @AllArgsConstructor
 public class BoardsVO {
 	
-	private long bno;
+	private Long bno;
 	private String btitle;
 	private String bcontent;
 	private String bwriter;
+	private Date bregDate;
+	private Timestamp bmodDate;
 	private int bviewsCnt;
 	private int breplyCnt;
-	private int bdelFlag;
-	private Date bregDate;
-	private Date bmodDate;
+	private String boardFile;
+	
+	private MultipartFile upload_file;
 	
 	
 	

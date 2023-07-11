@@ -7,11 +7,7 @@
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure 
-			servlet이 사용할 빈을 정의함 : 빈이 생성되는 곳 : beanFactory . applicationContext (뒤에 context잇는 파일들) 
-	-->
-	
-	<!-- Enables the Spring MVC @Controller programming model -->
+
 	<annotation-driven />
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
@@ -43,5 +39,7 @@
 	<beans:bean class="org.springframework.context.support.MessageSourceAccessor">
 		<beans:constructor-arg ref="messageSource" />
 	</beans:bean>
+	
+	<beans:bean class="org.springframework.web.multipart.support.StandardServletMultipartResolver" id="multipartResolver" />
 	
 </beans:beans>

@@ -5,71 +5,21 @@
 
 <mapper namespace="com.danny.dannygalaxy.mapper.BoardMapper">
 	
-	<!-- 전체글 리스트 (페이징 고려) -->
-	<select id="selectBoardList" resultType="com.danny.dannygalaxy.domain.BoardsVO"
-		parameterType="com.danny.dannygalaxy.common.BoardPagingDTO">
-		<![CDATA[
-			SELECT rn,bno,btitle,bcontent,bwriter,
-				   bregdate,bmoddate,bviewsCnt,breplyCnt,bdelFlag
-		    FROM (SELECT rownum rn,a.*
-		          FROM schatz.boards a
-		          WHERE rownum <=(#{pageNum}*#{rowAmountPerPage}))
-            WHERE rn >= ((#{pageNum} * #{rowAmountPerPage}) - (#{rowAmountPerPage}-1))
-			]]>
+	<!-- 게시글 목록 -->
+	<select id="selectBoardList">
+		SELECT bno,btitle,bcontent,bwriter,bregDate,bmodDate,
+		bviewsCnt,breplyCnt,boardFile
+		FROM schatz.tbl_boards
 	</select>
 	
-	<!--  게시글 총 수   -->
-	<select id="selectRowAmountTotal" resultType="long">
-		<![CDATA[
-			SELECT count(*) totalCnt FROM schatz.boards
-		]]>
-	</select>
-
-
-    <!-- 게시글 등록  -->
-	<insert id="insertBoardsSelectKey">
-		<selectKey keyProperty="bno" order="BEFORE" resultType="long">
-			SELECT schatz.seq_board.nextval from dual
+	<!-- 게시글 등록  -->
+	<insert id="insertBoard">
+		<selectKey keyProperty="bno" order="BEFORE" resultType="Long">
+			SELECT seq_boards.nextval FROM dual
 		</selectKey>
-			INSERT  INTO schatz.boards
-				   VALUES (#{bno}, #{btitle},#{bcontent},#{bwriter},default,default,default,default,default)
-	</insert>	
-	
-	<!--특정 게시글 조회  -->
-	<select id="selectBoards" resultType="com.danny.dannygalaxy.domain.BoardsVO">
-			SELECT bno,btitle,bcontent,bwriter,bviewsCnt,breplyCnt,bdelFlag,bregDate,bmodDate
-			FROM schatz.boards
-			WHERE bno=#{bno}
-	</select>
-	
-	<!-- 특정 게시글 조회수 증가 :게시글 조회시 +1 -->
-	<update id="updateBviewsCnt">
-		UPDATE schatz.boards
-		   SET bviewsCnt = bviewsCnt + 1
-		 WHERE bno = #{bno}
-	</update>
-
-	<!-- 특정 게시글 수정  -->
-	<update id="updateBoards" parameterType="com.danny.dannygalaxy.domain.BoardsVO">		    
-			UPDATE schatz.boards
-			   SET btitle = #{btitle},
-   				   bcontent=#{bcontent},
-    			   bmoddate=default
-		     WHERE bno=#{bno}
-	</update>
-	
-	<!-- 특정 게시글 삭제 요청. bdelFlag를 1로 수정-->
-	<update id="updateBdelFlag" parameterType="long">
-			UPDATE schatz.boards
-			   SET bdelflag = 1
-			 WHERE bno = #{bno}
-	</update>
-	<!-- 특정 게시글 삭제   -->	
-	<delete id="deleteBoards" parameterType="long">
-		DELETE schatz.boards
-		 WHERE bno = #{bno}
-	</delete>
-	
+		INSERT INTO schatz.tbl_boards
+			VALUES(#{bno},#{btitle},#{bcontent},#{bwriter},default,default,default,default,#{boardFile,jdbcType=VARCHAR})	
+	</insert>
 	
 	
 </mapper>	

@@ -10,12 +10,16 @@
 	<div class="card" style="margin-top:20px">
 	  <div class="card-body">
 	  	<div id="inputReply">
+	  		<form id="uploadForm" enctype="multipart/form-data">
 	  		<!-- 댓글 입력창 -->
 	  	   <small>[작성자]</small> 
 	  	   <input type="text" class="form-control" name="cwriter" id="cwriter">
 	  	   <small>[글입력칸]</small> 
 	  	  <input type="text" class="form-control" id="ccontent" name="ccontent" placeholder="글을 입력하세요" style="width: 100%; height: 100px;">
+	  	 <small>[이미지입력칸]</small> 
+	  	 	<input type="file" name="imageFile" id="imageFile">
 	  	  <button type="button" id="replyButton" class="btn btn-primary">입력</button>
+	  	  </form>
 	  	</div>
 	  </div>
 	</div>	  	
@@ -25,37 +29,34 @@
 
 <script>
 
-
-
+//입력 버튼을 클릭하면
 $("#replyButton").on("click",function(){
 	
+	// 폼 데이터를 formData 객체에 담는다
+	var formData = new FormData($("#uploadForm")[0]);
 	
-	var cwriter = $("#cwriter").val();
-	var ccontent = $("#ccontent").val();
-	
-	var param = {cwriter:cwriter,ccontent:ccontent};
-	
+	// ajax로 컨트롤러에 요청을 보낸다
 	$.ajax({
-		url:"${contextPath}/community/registerCmt",
-		type:"post",
-		data:JSON.stringify(param),
-		contentType:"application/json; charset=UTF-8",
-		success:function(result){
-			if(result == '성공'){
-				alert("등록이 성공하였습니다.")
-				showCmtList()
+		url:"${contextPath}/community/registerCmt", // 요청 URL
+		type:"post", // 요청 방식
+		data:formData, // 요청 데이터
+		contentType:"multipart/form-data",
+		processData:false, // 데이터를 쿼리스트링으로 변환하지 않는다
+		success:function(result){ // 성공적으로 응답을 받으면
+			if(result == '성공'){ // 결과가 성공이면
+				alert("등록이 성공하였습니다.") // 알림창을 띄우고
+				showCmtList() // 댓글 목록을 갱신한다
 				
-			}else{
-				alert("등록이 실패하였습니다.");
+			}else{ // 결과가 실패이면
+				alert("등록이 실패하였습니다."); // 알림창을 띄운다
 			}
 			
 		}//end-success
 		
 	})//end-ajax
 	
-	
 })//end-replyButton
-	
+
 	
 	
 function showCmtList(){

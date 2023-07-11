@@ -7,3 +7,42 @@ create table tbl_rockets(
     rocketRank number(1,0) default 0,
      rocketSpecial varchar(200) default '-'
 )tablespace danny;
+
+         
+-- 커뮤니티 테이블
+CREATE TABLE schatz.tbl_community(
+cno number(10,0),
+cwriter VARCHAR2(50) NOT NULL,
+ccontent VARCHAR2 (4000) NOT NULL,
+cregDate DATE DEFAULT sysdate,
+cPrno NUMBER(10,0)
+)TABLESPACE schatz;
+
+
+-- 여행 커뮤니티 게시판 댓글 테이블 기본키
+ALTER TABLE schatz.tbl_community
+ADD CONSTRAINT pk_community PRIMARY KEY (cno);
+
+-- 여행 커뮤니티 게시판 댓글 테이블 외래키
+ALTER TABLE schatz.tbl_community
+ADD CONSTRAINT fk_cprno FOREIGN KEY(cprno)
+REFERENCES schatz.tbl_community(cno) ON DELETE CASCADE;
+
+      
+         
+-- 여행 커뮤니티 첨부파일 테이블
+CREATE TABLE schatz.tbl_attachfiles(
+uuid VARCHAR2(50),
+uploadPath VARCHAR2(250) NOT NULL,
+fileName VARCHAR2(50) NOT NULL,
+cno NUMBER(10)
+)TABLESPACE schatz;
+
+ALTER TABLE schatz.tbl_attachfiles 
+ADD CONSTRAINT pk_uuid PRIMARY KEY (uuid);
+
+--외래키
+ALTER TABLE schatz.tbl_attachfiles 
+ADD CONSTRAINT fk_attachfiles FOREIGN KEY(cno)
+REFERENCES schatz.tbl_community(cno);
+
